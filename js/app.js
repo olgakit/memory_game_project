@@ -2,7 +2,13 @@
  * Create a list that holds all of your cards
  */
 
-
+let cards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb", "fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
+const deck = document.querySelector('.deck');
+const start= prompt("Ready to to start the game?", "Yes");
+let twoOpenCards = [];
+let time = 0;
+const movesCounter = document.querySelector('.moves');
+let moves = 1;
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -25,6 +31,25 @@ function shuffle(array) {
     return array;
 }
 
+for (const card of cards) {
+    if (start === null) {
+        alert("See Ya!");
+        break;
+    } else {
+        startGame();
+    }
+}
+function produceCard(card) {
+    return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
+};
+
+function startGame() {
+    let cardsHTML = shuffle(cards).map(function(card) {
+        return produceCard(card);
+    });
+    deck.innerHTML = cardsHTML.join('');
+    playGame();
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -36,3 +61,24 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
+function playGame() {
+    let clickedCard = document.querySelectorAll('.card');
+    for (const c of clickedCard) {
+        c.addEventListener('click', function(e) {
+            c.classList.add('open', 'show');
+            twoOpenCards.push(c);
+            if (twoOpenCards.length == 2) {
+                setTimeout(function() {
+                    twoOpenCards.forEach(function(c) {
+                        c.classList.remove('open', 'show');
+                        //twoOpenCards.length = 0;
+                        twoOpenCards = [];
+                    });
+                }, 999);
+                movesCounter.innerText = moves;
+                moves+=1;
+            }
+        });
+    }
+}
