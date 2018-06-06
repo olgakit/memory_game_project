@@ -6,15 +6,17 @@ let cards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube"
 const deck = document.querySelector('.deck');
 const start= prompt("Ready to to start the game?", "Yes");
 let twoOpenCards = [];
-let time = 0;
+//let timer = document.querySelector('.timer');
 const movesCounter = document.querySelector('.moves');
 let moves = 1;
+var timer = new Timer();
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -30,7 +32,7 @@ function shuffle(array) {
 
     return array;
 }
-
+//browser prompt and call the game start
 for (const card of cards) {
     if (start === null) {
         alert("See Ya!");
@@ -39,17 +41,27 @@ for (const card of cards) {
         startGame();
     }
 }
+
+timer.addEventListener('secondsUpdated', function (e) {
+    $('#timer .minutes').html(timer.getTimeValues().minutes);
+    $('#timer .seconds').html(timer.getTimeValues().seconds);
+});
+
+//produce html of each card
 function produceCard(card) {
     return `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`;
 };
 
+//shuffle and display cards, start the timer
 function startGame() {
     let cardsHTML = shuffle(cards).map(function(card) {
         return produceCard(card);
     });
     deck.innerHTML = cardsHTML.join('');
+    timer.start({precision: 'seconds'});
     playGame();
 }
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -72,10 +84,9 @@ function playGame() {
                 setTimeout(function() {
                     twoOpenCards.forEach(function(c) {
                         c.classList.remove('open', 'show');
-                        //twoOpenCards.length = 0;
                         twoOpenCards = [];
                     });
-                }, 999);
+                }, 950);
                 movesCounter.innerText = moves;
                 moves+=1;
             }
