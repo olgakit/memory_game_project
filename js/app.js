@@ -4,9 +4,9 @@
 
 let cards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb", "fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
 const deck = document.querySelector('.deck');
-const start= prompt("Ready to to start the game?", "Yes");
+const start= prompt("Ready to to start the game?", "Of course");
 let twoOpenCards = [];
-//let timer = document.querySelector('.timer');
+let matchedCards = [];
 const movesCounter = document.querySelector('.moves');
 let moves = 1;
 var timer = new Timer();
@@ -42,6 +42,7 @@ for (const card of cards) {
     }
 }
 
+//timer event listener from https://github.com/albert-gonzalez/easytimer.js
 timer.addEventListener('secondsUpdated', function (e) {
     $('#timer .minutes').html(timer.getTimeValues().minutes);
     $('#timer .seconds').html(timer.getTimeValues().seconds);
@@ -58,8 +59,8 @@ function startGame() {
         return produceCard(card);
     });
     deck.innerHTML = cardsHTML.join('');
-    timer.start({precision: 'seconds'});
     playGame();
+    timer.start({precision: 'seconds'});
 }
 
 
@@ -74,22 +75,43 @@ function startGame() {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+
 function playGame() {
     let clickedCard = document.querySelectorAll('.card');
     for (const c of clickedCard) {
         c.addEventListener('click', function(e) {
+            if (c.classList.contains('open', 'show')) {
+                c.removeEventListener('click');
+            }
             c.classList.add('open', 'show');
             twoOpenCards.push(c);
             if (twoOpenCards.length == 2) {
+                //keep open if match
+                if (twoOpenCards[0].dataset.card == twoOpenCards[1].dataset.card) {
+                    twoOpenCards[0].classList.add('open', 'match', 'show');
+                    twoOpenCards[1].classList.add('open', 'match', 'show');
+                }
+                //hide if no match
                 setTimeout(function() {
                     twoOpenCards.forEach(function(c) {
                         c.classList.remove('open', 'show');
                         twoOpenCards = [];
                     });
-                }, 950);
+                }, 900);
                 movesCounter.innerText = moves;
                 moves+=1;
+                //all cards matched, call gameWon
+                if (c.classList.contains('match')) {
+                    matchedCards.push(c);
+                }
+                if (matchedCards.length == 8) {
+                    return gameWon();
+                }
             }
         });
     }
+}
+//gameWon stops the timer, displays a message and play again question, updates star rating
+function gameWon() {
+    timer.stop();
 }
