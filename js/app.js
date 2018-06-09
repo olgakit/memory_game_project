@@ -10,6 +10,9 @@ let matchedCards = [];
 const movesCounter = document.querySelector('.moves');
 let moves = 1;
 var timer = new Timer();
+let minutes = document.querySelector('.minutes');
+
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -76,6 +79,31 @@ function startGame() {
  */
 
 
+ function rating() {
+     let stars = document.querySelectorAll('.stars');
+     let one = document.querySelector('.one');
+     let two = document.querySelector('.two');
+     let three = document.querySelector('.three');
+     if (movesCounter.innerText <= 19 && minutes.innerText <= 1) {
+         stars.style.color = 'orange';
+         starRating = '3 out of 3 stars';
+     } else if (movesCounter.innerText <= 30 && minutes.innerText <= 2) {
+         one.style.color = 'orange';
+         two.style.color = 'orange';
+         starRating = '2 out of 3 stars';
+     } else {
+         one.style.color = 'orange';
+         starRating = '1 out of 3 stars';
+     }
+ }
+//gameWon stops the timer, displays a message and score, updates star rating
+ function gameWon() {
+     timer.stop();
+     rating();
+     let starRating = '';
+     alert(`You Won! Your score is ${starRating}.`);
+ }
+
 function playGame() {
     let clickedCard = document.querySelectorAll('.card');
     for (const c of clickedCard) {
@@ -97,21 +125,19 @@ function playGame() {
                         c.classList.remove('open', 'show');
                         twoOpenCards = [];
                     });
-                }, 900);
+                }, 500);
                 movesCounter.innerText = moves;
                 moves+=1;
                 //all cards matched, call gameWon
                 if (c.classList.contains('match')) {
                     matchedCards.push(c);
                 }
-                if (matchedCards.length == 8) {
-                    return gameWon();
-                }
+                setTimeout(function() {
+                    if (matchedCards.length == 8 && twoOpenCards.length == 2) {
+                        return gameWon();
+                    }
+                }, 200);
             }
         });
     }
-}
-//gameWon stops the timer, displays a message and play again question, updates star rating
-function gameWon() {
-    timer.stop();
 }
