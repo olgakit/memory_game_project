@@ -73,7 +73,7 @@ function startGame() {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
- 
+
 //star rating once all cards match
 function rating() {
     let stars = document.querySelectorAll('.stars');
@@ -81,7 +81,9 @@ function rating() {
     let two = document.querySelector('.two');
     let three = document.querySelector('.three');
     if (movesCounter.innerText <= 19 && minutes.innerText <= 1) {
-        stars.style.color = 'orange';
+        one.style.color = 'orange';
+        two.style.color = 'orange';
+        three.style.color = 'orange';
         starRating = '3 out of 3 stars';
     } else if (movesCounter.innerText <= 30 && minutes.innerText <= 2) {
         one.style.color = 'orange';
