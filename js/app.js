@@ -4,22 +4,20 @@
 
 let cards = ["fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb", "fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-leaf", "fa-bicycle", "fa-bomb"];
 const deck = document.querySelector('.deck');
-const start= prompt("Ready to to start the game?", "Of course");
+const start= prompt("Ready to start the game?", "Of course");
 let twoOpenCards = [];
 let matchedCards = [];
 const movesCounter = document.querySelector('.moves');
 let moves = 1;
 var timer = new Timer();
 let minutes = document.querySelector('.minutes');
-
-
+const restart = document.getElementById('restart');
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -32,7 +30,6 @@ function shuffle(array) {
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
 }
 //browser prompt and call the game start
@@ -62,10 +59,9 @@ function startGame() {
         return produceCard(card);
     });
     deck.innerHTML = cardsHTML.join('');
-    playGame();
     timer.start({precision: 'seconds'});
+    playGame();
 }
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -77,37 +73,31 @@ function startGame() {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-
-
- function rating() {
-     let stars = document.querySelectorAll('.stars');
-     let one = document.querySelector('.one');
-     let two = document.querySelector('.two');
-     let three = document.querySelector('.three');
-     if (movesCounter.innerText <= 19 && minutes.innerText <= 1) {
-         stars.style.color = 'orange';
-         starRating = '3 out of 3 stars';
-     } else if (movesCounter.innerText <= 30 && minutes.innerText <= 2) {
-         one.style.color = 'orange';
-         two.style.color = 'orange';
-         starRating = '2 out of 3 stars';
-     } else {
-         one.style.color = 'orange';
-         starRating = '1 out of 3 stars';
-     }
- }
-//gameWon stops the timer, displays a message and score, updates star rating
- function gameWon() {
-     timer.stop();
-     rating();
-     let starRating = '';
-     alert(`You Won! Your score is ${starRating}.`);
- }
+ 
+//star rating once all cards match
+function rating() {
+    let stars = document.querySelectorAll('.stars');
+    let one = document.querySelector('.one');
+    let two = document.querySelector('.two');
+    let three = document.querySelector('.three');
+    if (movesCounter.innerText <= 19 && minutes.innerText <= 1) {
+        stars.style.color = 'orange';
+        starRating = '3 out of 3 stars';
+    } else if (movesCounter.innerText <= 30 && minutes.innerText <= 2) {
+        one.style.color = 'orange';
+        two.style.color = 'orange';
+        starRating = '2 out of 3 stars';
+    } else {
+        one.style.color = 'orange';
+        starRating = '1 out of 3 stars';
+    }
+}
 
 function playGame() {
     let clickedCard = document.querySelectorAll('.card');
     for (const c of clickedCard) {
         c.addEventListener('click', function(e) {
+            e.stopImmediatePropagation();
             if (c.classList.contains('open', 'show')) {
                 c.removeEventListener('click');
             }
@@ -141,3 +131,15 @@ function playGame() {
         });
     }
 }
+
+//gameWon stops the timer, displays a message and score, updates star rating
+function gameWon() {
+    timer.stop();
+    rating();
+    alert(`You Won! Your score is ${starRating}.`);
+ }
+
+//if restart button is clicked, the window reloads to ask the game start question
+restart.addEventListener('click', function(e) {
+    window.location.reload();
+});
