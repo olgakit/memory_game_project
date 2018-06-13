@@ -107,3 +107,71 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+/*
+ * Responsive
+ */
+
+@viewport{
+    zoom: 1.0;
+}
+
+@media screen and (max-width: 320px) {
+    body
+    .container,
+    .deck {
+        text-align: center;
+        transform: scale(0.6);
+    }
+    .card,
+    .show,
+    .open,
+    .match {
+        transform: scale(0.5);
+    }
+    .container {
+        margin-top: -100px;
+    }
+    .deck {
+        margin-left: 0.1px;
+        margin-right: 0.1px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    body,
+    .container,
+    .deck,
+    .card,
+    .show,
+    .open,
+    .match {
+        justify-content: space-around;
+        text-align: center;
+        transform: scale(0.7);
+        justify-content: space-between;
+    }
+    body {
+        margin-top: -50px;
+    }
+    .deck {
+        padding: 16px;;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .deck,
+    .card,
+    .container,
+    .show,
+    .open,
+    .match,
+    body {
+        text-align: center;
+        transform: scale(0.9);
+        justify-content: space-between;
+    }
+    body {
+        margin-top: -50px;
+    }
+}
