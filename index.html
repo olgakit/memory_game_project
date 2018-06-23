@@ -35,14 +35,38 @@
 
         <ul class="deck">
         </ul>
+
     </div>
+    <div class="modal1">
+        <div id="ready">
+            <h3>Ready to play?</h3>
+            <button onclick="startGame()" class="yes">Yes!</button> <span><button onclick="no()" class="no">No</button></span>
+        </div>
+    </div>
+    <div class="modal2">
+        <div id="win">
+            <div class="win-content">
+                <h3>Congratulations!</h3>
+                <p id="winText">
+
+                </p><span class="score-panel modal"><ul class="stars win"></ul></span>
+                <p>Ready to play again?</p>
+                <button onclick="startGame()" class="yes">Yes!</button><span> <button onclick="no()" class="no"> No</button></span>
+            </div>
+        </div>
+    </div>
+    <div class="modal3">
+        <div id="bye"><img id="byeimg" src="http://wallpaperen.com/wp-content/uploads/2018/01/ideal-funny-bye-memes-bye-bye-quickmeme-funny-bye-memes.jpg" alt="Bye"/>
+        </div>
+        <!--image from http://wallpaperen.com/funny-bye-memes/ideal-funny-bye-memes-bye-bye-quickmeme/-->
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/easytimer.js"></script>
     <script src="js/app.js"></script>
     <script src="lib/easytimer/dist/easytimer.min.js"></script>
     <script>
         var timerInstance = new Timer();
     </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
-    </script>
+
 </body>
 </html>

@@ -30,3 +30,5 @@ albert-gonzalez/easytimer.js
 5. Shuffle function from http://stackoverflow.com/a/2450976
 
 6. Background pattern from Subtle Patterns
+
+7. "Bye" image for the #bye modal from http://wallpaperen.com/funny-bye-memes/ideal-funny-bye-memes-bye-bye-quickmeme/
