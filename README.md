@@ -10,7 +10,7 @@
 
 The game will allow the user to open two cards at a time. If the cards match they will stay open. The goal is to identify matching cards in the shortest possible time.
 
-To play the game: http://htmlpreview.github.io/?https://github.com/olgakit/memory_game_project/blob/master/index.html
+To play the game: https://olgakit.github.io/memory_game_project/
 
 ## Contributing
 
