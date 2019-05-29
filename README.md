@@ -31,4 +31,4 @@ albert-gonzalez/easytimer.js
 
 6. Background pattern from Subtle Patterns
 
-7. "Bye" image for the #bye modal from http://wallpaperen.com/funny-bye-memes/ideal-funny-bye-memes-bye-bye-quickmeme/
+7. "Bye" image for the #bye modal from http://www.quickmeme.com/img/5b/5b595d791487a85990c81cac1cc3fb7c430fa1de87fb587a8f8b01b25fd91208.jpg
